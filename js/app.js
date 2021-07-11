@@ -63,3 +63,34 @@ const galleryItems = [
     description: 'Lighthouse Coast Sea',
   },
 ];
+
+const galleryItemsList = document.querySelector('gallery')
+
+const createImg = document.createElement('img');
+createImg.setAttribute('src', 'https://cdn.pixabay.com/photo/2019/05/17/04/35/lighthouse-4208843__340.jpg');
+createImg.setAttribute('alt', 'Lighthouse Coast Sea');
+
+
+
+
+const createGalleryListItem = document.createElement('li');
+createGalleryListItem.appendChild(createImg)
+
+console.log(createGalleryListItem)
+
+
+
+function gallerySrcList(galleryItems) {
+  const gallery = [];
+
+  const gallerySrc = galleryItems.flatMap((galleryItem) => galleryItem.preview);
+  gallery.push(gallerySrc);
+  return gallery;
+};
+
+console.log(gallery)
+
+
+
+
+
