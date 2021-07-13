@@ -64,33 +64,55 @@ const galleryItems = [
   },
 ];
 
-const galleryItemsList = document.querySelector('gallery')
+const galleryItemsList = document.querySelector('.js-gallery');
 
-const createImg = document.createElement('img');
-createImg.setAttribute('src', 'https://cdn.pixabay.com/photo/2019/05/17/04/35/lighthouse-4208843__340.jpg');
-createImg.setAttribute('alt', 'Lighthouse Coast Sea');
+const allGalleryItems = galleryItems.map((items) => {
+  const {...galleryItems} = items;
+  return `<li class="gallery__item">
+            <a class="gallery__link" href = "${galleryItems.original}">
+              <img class="gallery__image" src = "${galleryItems.preview}" data-source = "${galleryItems.original}" alt = "${galleryItems.description}"">
+            </a>
+          </li>`;
+
+});
+
+  
+galleryItemsList.insertAdjacentHTML("beforeend", allGalleryItems.join(""));
 
 
+const modalContainer = document.querySelector('.js-lightbox');
+
+const closeBtn = document.querySelector('.lightbox__button');
+
+const imgItem = document.querySelector('.lightbox__image');
 
 
-const createGalleryListItem = document.createElement('li');
-createGalleryListItem.appendChild(createImg)
+galleryItemsList.addEventListener('click', onImgClick);
 
-console.log(createGalleryListItem)
-
+closeBtn.addEventListener('click', modalClose);
 
 
-function gallerySrcList(galleryItems) {
-  const gallery = [];
+function onImgClick(e) {
+  const imgOriginalSize = e.target.dataset.source;
+    
+  e.preventDefault();
+  if (e.target.nodeName !== 'IMG') {
+    return 
+  } else {
+      modalOpener();
+      imgItem.setAttribute("src", imgOriginalSize);
+    
+  };  
+}
 
-  const gallerySrc = galleryItems.flatMap((galleryItem) => galleryItem.preview);
-  gallery.push(gallerySrc);
-  return gallery;
+function modalOpener() {
+  modalContainer.classList.add('is-open');
 };
 
-console.log(gallery)
-
-
+function modalClose() {
+  modalContainer.classList.remove('is-open');
+  imgItem.setAttribute("src", '');
+}
 
 
 
